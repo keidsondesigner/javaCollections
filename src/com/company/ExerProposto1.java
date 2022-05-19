@@ -1,49 +1,49 @@
 package com.company;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Scanner;
+
+
+/*Faça um programa que receba a temperatura média os 6 primeiros meses do ano e armazene-as em uma lista.
+Após isto, calcule a média semestral das temperaturas e mostre todas as temperaturas acima desta média,
+e em que mês elas ocorreram (mostrar o mês por extenso: 1 – Janeiro, 2 – Fevereiro e etc).
+*/
 
 public class ExerProposto1 {
     public static void main(String[] args) {
-        System.out.println("Crie uma lista que recebe a temperatuda média dos 6 primeiros meses");
-        List<Temperatura> temperaturas = new ArrayList<Temperatura>(){{
-            add(new Temperatura("Janeiro", 38.5));
-            add(new Temperatura("Fevereiro", 34.5));
-            add(new Temperatura("Março", 26.5));
-            add(new Temperatura("Abril", 28.5));
-            add(new Temperatura("Maio", 31.5));
-            add(new Temperatura("Junho", 36.5));
-        }};
-        System.out.println(temperaturas);
+        Scanner scan = new Scanner(System.in);
+        List<Double> temperaturas = new ArrayList<Double>();
 
+        double soma = 0.0;
+        for (int i = 1; i <= 6; i++){
+            System.out.println("Digite 6 temperaturas uma de cada mês: ");
+            double temp = scan.nextDouble();
+            temperaturas.add(temp);
+            soma += temp;
+        }
 
-    }
-}
+        double mediaTempSemestral = soma / temperaturas.size();
 
+        System.out.println("Temperatura Semestral: " + temperaturas);
+        System.out.println("Média temperaturas Semeteral: " + mediaTempSemestral + "ºC");
+        System.out.println("------------");
 
-class Temperatura {
-    private String mes;
-    private Double temperatura;
+        for (Double temp : temperaturas){
+            if (temp > mediaTempSemestral){
+                int index = temperaturas.indexOf(temp);
+                switch (index) {
+                    case 0 : System.out.println((index + 1) + " - JANEIRO: " + temp + "ºC");
+                    case 1 : System.out.println((index + 1) + " - FEVEREIRO: " + temp + "ºC");
+                    case 2 : System.out.println((index + 1) + " - MARÇO: " + temp + "ºC");
+                    case 3 : System.out.println((index + 1) + " - ABRIL: " + temp + "ºC");
+                    case 4 : System.out.println((index + 1) + " - MAIO: " + temp + "ºC");
+                    case 5 : System.out.println((index + 1) + " - JUNHO: " + temp + "ºC");
+                    default : {
+                    }
+                }
+            }
+        }
 
-    public Temperatura(String mes, Double temperatura) {
-        this.mes = mes;
-        this.temperatura = temperatura;
-    }
-
-    public String getMes() {
-        return mes;
-    }
-
-    public Double getTemperatura() {
-        return temperatura;
-    }
-
-    @Override
-    public String toString() {
-        return "{" +
-                "mes: '" + mes + '\'' +
-                ", temperatura: " + temperatura +
-                '}';
     }
 }
